@@ -1,0 +1,10 @@
+{
+ "name":"rmt-flyer-maker","version":"1.0.0","description":"RMT Flyer Maker","author":"Mahmoud Thabet","main":"electron/main.js",
+ "scripts":{"electron":"electron .","prepare-assets":"node scripts/prepare.js","dist:win":"node scripts/prepare.js && electron-builder --win nsis"},
+ "dependencies":{"@capacitor/core":"^6.1.0","@capacitor/android":"^6.1.0"},
+ "devDependencies":{"@capacitor/cli":"^6.1.0","electron":"^31.0.0","electron-builder":"^24.13.3","xlsx":"0.18.5","html2canvas":"^1.4.1","jspdf":"^2.5.1",
+  "@fontsource/cairo":"^5.0.0","@fontsource/tajawal":"^5.0.0","@fontsource/changa":"^5.0.0","@fontsource/lemonada":"^5.0.0","@fontsource/marhey":"^5.0.0","@fontsource/reem-kufi":"^5.0.0","@fontsource/aref-ruqaa":"^5.0.0","@fontsource/amiri":"^5.0.0"},
+ "build":{"appId":"com.rmt.flyermaker","productName":"RMT Flyer Maker","files":["www/**","electron/**","build/**"],
+  "win":{"target":"nsis","icon":"build/icon.png"},
+  "nsis":{"oneClick":false,"allowToChangeInstallationDirectory":true,"createDesktopShortcut":true,"shortcutName":"RMT Flyer Maker"}}
+}
