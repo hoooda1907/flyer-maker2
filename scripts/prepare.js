@@ -1,7 +1,7 @@
 const fs=require('fs'),path=require('path');
 const mk=d=>fs.mkdirSync(d,{recursive:true}),nm=p=>path.join('node_modules',p);
 mk('www/lib');mk('www/fonts');
-for(const [s,d] of [['xlsx/dist/xlsx.full.min.js','xlsx.full.min.js'],['html2canvas/dist/html2canvas.min.js','html2canvas.min.js'],['jspdf/dist/jspdf.umd.min.js','jspdf.umd.min.js']]){
+for(const [s,d] of [['xlsx/dist/xlsx.full.min.js','xlsx.full.min.js'],['html2canvas/dist/html2canvas.min.js','html2canvas.min.js'],['jspdf/dist/jspdf.umd.min.js','jspdf.umd.min.js'],['jszip/dist/jszip.min.js','jszip.min.js']]){
  try{fs.copyFileSync(nm(s),path.join('www/lib',d));console.log('lib ok',d)}catch(e){console.warn('LIB MISSING',s)}}
 let css='';
 for(const id of ['cairo','tajawal','changa','lemonada','marhey','reem-kufi','aref-ruqaa','amiri']){
