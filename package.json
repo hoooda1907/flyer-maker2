@@ -27,7 +27,8 @@
   "@fontsource/marhey": "^5.0.0",
   "@fontsource/reem-kufi": "^5.0.0",
   "@fontsource/aref-ruqaa": "^5.0.0",
-  "@fontsource/amiri": "^5.0.0"
+  "@fontsource/amiri": "^5.0.0",
+  "jszip": "^3.10.1"
  },
  "build": {
   "appId": "com.rmt.flyermaker",
