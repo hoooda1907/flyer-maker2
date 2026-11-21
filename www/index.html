@@ -101,7 +101,7 @@ textarea{font:inherit;padding:7px;border-radius:8px;border:1px solid var(--bd);b
  <label class="w">شكل التصميم الفردي<select data-k="sl"><option value="t">حسب القالب المختار (كل القوالب)</option><option value="c">مشهد عروض (منصة + سعر + اسم)</option><option value="a">كلاسيك</option><option value="b">سعران جانبيان</option></select></label>
  <label class="w">العبارة العلوية<input id="sgt" oninput="S.single.tag=this.value;render()"></label>
  <button class="w p" onclick="edit(-1)">✏️ تعديل المنتج (صورة / اسم / سعر)</button>
- <button onclick="sbi.click()">🖼️ خلفية للتصميم</button><button onclick="S.sbg='';render()">إزالة الخلفية</button></div></details>
+ <div class="w"><b>🖼️ خلفيات جاهزة للتصميم الفردي</b> <span style="font-size:12px;opacity:.7">(＋ لإضافة خلفية من جهازك، ⊘ بدون خلفية)</span><div class="cg" id="sbg"></div></div></div></details>
 <details><summary>🏷️ شريط "عروض" (اكتب اسم العرض داخله)</summary><div class="g">
  <label>الإظهار في الصفحات والتصميم الفردي<select id="bnon" onchange="S.bn.on=this.value;render()"><option value="n">إخفاء</option><option value="y">إظهار</option></select></label>
  <label>لون الكتابة<input type="color" id="bnc" oninput="S.bn.c=this.value;render()"></label>
@@ -227,9 +227,13 @@ btab:{name:'أخضر بسعر أصفر',c1:'#2db35f',c2:'#1d9c4d',tc:'#ffffff',n
 geo:{name:'رمادي هندسي',c1:'#f3f0e8',c2:'#ebe7dc',tc:'#14532d',nc:'#222222',pc:'#ffffff',ptc:'#16a34a',shape:'tb',oc:'#ffffff',ob:'#d62828',old:'x',place:'row',card:'y',cc:'#e4e4e4',rad:22,pct:'n'},
 coffee:{name:'صفوف بدائرة خضراء',c1:'#ebebe8',c2:'#e2e2de',tc:'#14532d',nc:'#222222',lay:'hz',cc:'#d4d4d4',circ:'#16a34a',ptc:'#111111',oc:'#d62828',rad:20,card:'y',pct:'n',old:'s'},
 olive:{name:'صفوف زيتوني',c1:'#e4e4e4',c2:'#dcdcdc',tc:'#4d5a12',nc:'#222222',lay:'hz',cc:'transparent',cb:'#8a9a2b',circ:'#8a9a2b',ptc:'#111111',oc:'#d62828',rad:18,card:'y',pct:'n',old:'s'},
+offers:{name:'عروض أخضر + شريط',c1:'#0e8a3a',c2:'#22c55e',tc:'#ffffff',nc:'#14532d',pc:'#e11d2e',ptc:'#ffffff',oc:'#222222',ob:'#ffe600',shape:'sq',old:'s',place:'row',card:'y',cc:'#ffffff',rad:30,pct:'y',bgp:'rays',bnOn:'y'},
+offers2:{name:'عروض أخضر بنجمة',c1:'#0b7a33',c2:'#1db954',tc:'#ffffff',nc:'#ffffff',nbg:'#14532d',nbr:40,pc:'#ffd400',ptc:'#b00020',oc:'#ffffff',ob:'#b00020',shape:'bu',old:'x',place:'col',card:'n',pct:'n',bgp:'dots',rad:20,bnOn:'y'},
+offers3:{name:'عروض أخضر وذهبي',c1:'#0a5a2a',c2:'#16803c',tc:'#ffffff',nc:'#fde68a',pc:'#fde68a',ptc:'#14532d',oc:'#fde68a',ob:'#14532d',shape:'ci',old:'s',place:'top',card:'n',cb:'#fde68a',rad:28,pct:'y',bnOn:'y'},
+scene:{name:'مشهد عروض (تصميم فردي)',c1:'#0e8a3a',c2:'#22c55e',tc:'#ffffff',nc:'#14532d',pc:'#e11d2e',ptc:'#ffffff',oc:'#ffffff',ob:'#111111',shape:'sq',old:'s',place:'row',card:'y',pct:'n',bgp:'rays',bnOn:'y',sl:'c',mode:'one',sbgId:'store-green'},
 star:{name:'نجمة حمراء',c1:'#ffe066',c2:'#ffb703',tc:'#b00020',nc:'#222222',pc:'#e11d2e',ptc:'#ffffff',oc:'#222222',ob:'#ffe600',shape:'bu',old:'s',place:'top',card:'y',pct:'n'}};
 const TB={bgp:'none',rad:26,cb:'transparent',hb:'transparent',cc:'rgba(255,255,255,.93)',nbg:'',nbc:'transparent',nbr:0,fr:'',pcs:'p',lbl:'n',lay:'g',circ:'transparent'};Object.assign(S,TB,T.hot,{tpl:'hot'});
-function setTpl(k){Object.assign(S,TB,T[k]);S.tpl=k;document.querySelectorAll('[data-k]').forEach(el=>{if(S[el.dataset.k]!==undefined)el.value=S[el.dataset.k]});render()}
+function setTpl(k){Object.assign(S,TB,T[k]);if(T[k].bnOn)S.bn.on=T[k].bnOn;if(T[k].sbgId&&window.BGS){const b=BGS.find(x=>x.id==T[k].sbgId);if(b)S.sbg=b.src}S.tpl=k;document.querySelectorAll('[data-k]').forEach(el=>{if(S[el.dataset.k]!==undefined)el.value=S[el.dataset.k]});render()}
 function oldH(x){return x.o?`<span class="o ${S.old}" style="--oc:${S.oc};color:${S.oc};background-color:${S.ob}">${S.lbl=='y'?'بدلا من ':''}${x.o}</span>`:''}
 const PT={bu:'50,0 61,12 76,6 80,22 96,25 90,40 100,52 88,62 92,78 76,80 70,96 56,88 42,100 34,85 18,90 18,72 2,64 12,50 2,36 18,28 16,10 34,14',hx:'25,4 75,4 100,50 75,96 25,96 0,50',ribbon:'0,0 100,0 100,82 50,100 0,82',rb:'0,0 100,0 100,88 50,100 0,88'};
 function bgS(sh,col){const p=PT[sh=='burst'?'bu':sh];if(!p)return `background:${col}`;const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon points="${p}" fill="${col}"/></svg>`;return `background:url(data:image/svg+xml;base64,${btoa(svg)}) center/100% 100% no-repeat`}
@@ -270,7 +274,12 @@ function useCover(id){const c=[...(window.COVERS||[]),...UCOV].find(x=>x.id==id)
  S.cv.layers=(c.layers||[TX('@title',50,38,110,'#ffffff',{w:86,sd:'#000000'}),TX('@sub',50,56,60,'#ffffff',{w:80,sd:'#000000'})]).map(l=>({...l,id:lid()}));if(S.logo)S.cv.layers.push(LG(14,8,18));
  S.sel='';S.mode='mag';cur=0;syncUI();render()}
 async function delUC(id){UCOV=UCOV.filter(c=>c.id!=id);await DB.set('ucov',UCOV);buildCvg()}
-function syncBn(){const a=$('#bnon');if(!a)return;a.value=S.bn.on;$('#bntx').value=S.bn.txt;$('#bnc').value=S.bn.c;$('#bnw').value=S.bn.w}
+let UBG=[];
+function buildSbg(){const g=$('#sbg');if(!g)return;const all=[...(window.BGS||[]),...UBG];
+ g.innerHTML=all.map(b=>`<button class="cvb" style="background-image:url(&quot;${b.src}&quot;)" title="${esc(b.name)}" onclick="useSbg('${b.id}')">${b.user?`<span class="x" onclick="event.stopPropagation();delUB('${b.id}')">✕</span>`:''}</button>`).join('')+'<button class="cvb" style="font-size:26px" onclick="S.sbg=\'\';render()">⊘</button><button class="cvb" style="font-size:30px" onclick="sbi.click()">＋</button>'}
+function useSbg(id){const b=[...(window.BGS||[]),...UBG].find(x=>x.id==id);if(!b)return;S.sbg=b.src;S.mode='one';syncUI();render()}
+async function delUB(id){UBG=UBG.filter(b=>b.id!=id);await DB.set('ubg',UBG);buildSbg()}
+function syncBn(){buildSbg();const a=$('#bnon');if(!a)return;a.value=S.bn.on;$('#bntx').value=S.bn.txt;$('#bnc').value=S.bn.c;$('#bnw').value=S.bn.w}
 let LID=1;const lid=()=>'L'+(LID++);
 const TX=(t,x,y,fs,c,o={})=>({id:lid(),t:'text',txt:t[0]=='@'?'':t,bind:t[0]=='@'?t.slice(1):'',x,y,w:o.w??80,fs,c,fw:o.fw??900,f:o.f||'',sd:o.sd||'',r:o.r||0,op:100});
 const EM=(e,x,y,fs,r=0)=>({id:lid(),t:'text',txt:e,bind:'',x,y,w:36,fs,c:'#000000',fw:400,f:'emoji',sd:'',r,op:100});
@@ -357,7 +366,7 @@ function render(){
  const P=pages();if(cur>=P.length)cur=P.length-1;const pg=P[cur];
  const st=$('#stage');st.style.height=S.h+'px';st.dataset.bgp=pg.cover?'none':S.bgp;st.style.setProperty('--rad',S.rad+(typeof S.rad=='number'?'px':''));st.style.setProperty('--cc',S.cc);st.style.setProperty('--nbg',S.nbg||'transparent');st.style.setProperty('--nbc',S.nbc);st.style.setProperty('--nbr',S.nbr+'px');st.style.setProperty('--nbp',S.nbg?'8px 14px':'4px 0 8px');st.style.setProperty('--circ',S.circ);st.style.setProperty('--fr',S.fr||'transparent');st.dataset.fr=(S.fr&&!pg.cover)?'1':'0';st.style.setProperty('--cb',S.cb);st.style.setProperty('--hb',S.hb);$('.nav').style.display=S.mode==='one'?'none':'flex';
  const E=c=>String(c).replace(/[&<>]/g,'');
- const bgi=pg.cover?S.cover:pg.single?S.sbg:'';st.style.background=bgi?`linear-gradient(rgba(0,0,0,${pg.cover?(S.cv.ov||0)/100:.2}),rgba(0,0,0,${pg.cover?(S.cv.ov||0)/100:.2})),url("${bgi}") center/cover`:pg.cover?`linear-gradient(160deg,${S.cv.c1},${S.cv.c2})`:`linear-gradient(160deg,${S.c1},${S.c2})`;
+ const bgi=pg.cover?S.cover:pg.single?S.sbg:'';st.style.background=bgi?`linear-gradient(rgba(0,0,0,${pg.cover?(S.cv.ov||0)/100:0}),rgba(0,0,0,${pg.cover?(S.cv.ov||0)/100:0})),url("${bgi}") center/cover`:pg.cover?`linear-gradient(160deg,${S.cv.c1},${S.cv.c2})`:`linear-gradient(160deg,${S.c1},${S.c2})`;
  let h=S.bn.on=='y'?bannerTop():`<div class="hd" style="color:${S.tc}"><h1>${E(S.title)}</h1>${S.logo?`<img src="${S.logo}">`:''}</div>`;
  if(pg.single){h=singleHTML()}else if(pg.end){h+=endH()}else if(pg.cover){h=coverH()}
  else{
@@ -513,7 +522,7 @@ async function boot(){
  const now=Date.now(),back=now+864e5<LIC.last;LIC.last=Math.max(LIC.last,now);
  if(!(await licensed())&&(back||(now-LIC.first)/864e5>=7))LIC.act=await actForm('انتهت الفترة التجريبية');
  await DB.set('lic',LIC);footer();
- UCOV=(await DB.get('ucov'))||[];const sv=await DB.get('S');if(sv)Object.assign(S,sv);syncUI();window.READY=true;render()}
+ UCOV=(await DB.get('ucov'))||[];UBG=(await DB.get('ubg'))||[];const sv=await DB.get('S');if(sv)Object.assign(S,sv);syncUI();window.READY=true;render()}
 $('#ctp').innerHTML='<option value="">— اختر قالباً —</option>'+Object.keys(CT).map(k=>`<option value="${k}">${CT[k].name}</option>`).join('');
 $('#cvi').onchange=e=>{const f=e.target.files[0];if(f)rd(f,async d=>{S.cover=await fit1600(d);S.mode='mag';cur=0;syncUI();render()});e.target.value=''};
 $('#lyi').onchange=e=>{const f=e.target.files[0];if(f)rd(f,async d=>pushLy({id:lid(),t:'img',src:await fit1600(d),x:50,y:50,w:40,r:0,op:100}));e.target.value=''};
@@ -523,7 +532,7 @@ $('#lyi').onchange=e=>{const f=e.target.files[0];if(f)rd(f,async d=>pushLy({id:l
  stg.addEventListener('pointermove',e=>{if(!DG)return;const k=1080/$('#wrap').clientWidth;DG.L.x=Math.max(0,Math.min(100,DG.ox+(e.clientX-DG.x)*k/10.8));DG.L.y=Math.max(0,Math.min(100,DG.oy+(e.clientY-DG.y)*k/(+S.h/100)));DG.el.style.left=DG.L.x+'%';DG.el.style.top=DG.L.y+'%'});
  const up=()=>{if(DG){DG=null;saveSoon();lyPanel()}};stg.addEventListener('pointerup',up);stg.addEventListener('pointercancel',up)}
 $('#ucv').onchange=e=>{const f=e.target.files[0];if(f)rd(f,async d=>{UCOV.push({id:'u'+Date.now(),name:'غلاف '+(UCOV.length+1),src:await fit1600(d),user:1});await DB.set('ucov',UCOV);buildCvg()});e.target.value=''};
-$('#sbi').onchange=e=>{const f=e.target.files[0];if(f)rd(f,async d=>{S.sbg=await fit1600(d);S.mode='one';syncUI();render()});e.target.value=''};
+$('#sbi').onchange=e=>{const f=e.target.files[0];if(f)rd(f,async d=>{const src=await fit1600(d);UBG.push({id:'b'+Date.now(),name:'خلفية '+(UBG.length+1),src,user:1});await DB.set('ubg',UBG);S.sbg=src;S.mode='one';syncUI();render()});e.target.value=''};
 document.fonts.ready.then(()=>{});boot().catch(e=>{$('#gate').style.display='none';window.READY=true;render()});
 </script>
 </body>
